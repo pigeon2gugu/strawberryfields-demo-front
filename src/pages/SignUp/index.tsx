@@ -112,74 +112,76 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6 text-center">회원가입</h1>
-      <div className="flex mb-4">
-        <button
-          className={`flex-1 py-2 px-4 ${userType === 'composer' ? 'bg-gray-200' : 'bg-white'}`}
-          onClick={() => setUserType('composer')}
-        >
-          작곡가
-        </button>
-        <button
-          className={`flex-1 py-2 px-4 ${userType === 'agency' ? 'bg-gray-200' : 'bg-white'}`}
-          onClick={() => setUserType('agency')}
-        >
-          음악기획사
-        </button>
+    <div className="min-h-screen flex justify-center items-center">
+      <div className="p-6 max-w-md w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center">회원가입</h1>
+        <div className="flex mb-4">
+          <button
+            className={`flex-1 py-2 px-4 ${userType === 'composer' ? 'bg-gray-200' : 'bg-white'}`}
+            onClick={() => setUserType('composer')}
+          >
+            작곡가
+          </button>
+          <button
+            className={`flex-1 py-2 px-4 ${userType === 'agency' ? 'bg-gray-200' : 'bg-white'}`}
+            onClick={() => setUserType('agency')}
+          >
+            음악기획사
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="email"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={handleEmailBlur}
+              className="w-full p-3 border border-gray-300 rounded box-border h-12"
+            />
+            {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+          </div>
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onBlur={handlePasswordBlur}
+            className="w-full p-3 border border-gray-300 rounded box-border h-12"
+          />
+          <input
+            type="password"
+            placeholder="비밀번호 확인"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            onBlur={handlePasswordBlur}
+            className="w-full p-3 border border-gray-300 rounded box-border h-12"
+          />
+          {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
+          <div>
+            <input
+              type="text"
+              placeholder={userType === 'composer' ? '작곡가명' : '기획사명'}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onBlur={handleNameBlur}
+              className="w-full p-3 border border-gray-300 rounded box-border h-12"
+            />
+            {nameError && <p className="text-red-500 text-sm mt-1">{nameError}</p>}
+          </div>
+          {formError && <p className="text-red-500 text-sm mt-1">{formError}</p>}
+          <button 
+            type="submit" 
+            className="w-full p-3 bg-black text-white rounded hover:bg-gray-800 box-border h-12"
+            disabled={signUpMutation.isPending || !!emailError || !!nameError || !!passwordError}
+          >
+            {signUpMutation.isPending ? '처리 중...' : '회원가입'}
+          </button>
+        </form>
+        <p className="mt-4 text-sm text-center">
+          이미 계정이 있으신가요? <a href="/login" className="text-blue-500 hover:underline">로그인하기</a>
+        </p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <input
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onBlur={handleEmailBlur}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
-        </div>
-        <input
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onBlur={handlePasswordBlur}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="password"
-          placeholder="비밀번호 확인"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          onBlur={handlePasswordBlur}
-          className="w-full p-2 border border-gray-300 rounded"
-        />
-        {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
-        <div>
-          <input
-            type="text"
-            placeholder={userType === 'composer' ? '작곡가명' : '기획사명'}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onBlur={handleNameBlur}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          {nameError && <p className="text-red-500 text-sm mt-1">{nameError}</p>}
-        </div>
-        {formError && <p className="text-red-500 text-sm mt-1">{formError}</p>}
-        <button 
-          type="submit" 
-          className="w-full p-2 bg-black text-white rounded hover:bg-gray-800"
-          disabled={signUpMutation.isPending || !!emailError || !!nameError || !!passwordError}
-        >
-          {signUpMutation.isPending ? '처리 중...' : '회원가입'}
-        </button>
-      </form>
-      <p className="mt-4 text-sm text-center">
-        이미 계정이 있으신가요? <a href="/login" className="text-blue-500 hover:underline">로그인하기</a>
-      </p>
     </div>
   );
 };
