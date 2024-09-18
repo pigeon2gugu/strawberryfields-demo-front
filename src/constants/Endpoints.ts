@@ -2,7 +2,8 @@ const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/ap
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: `${BASE_URL}/auth/login`
+    LOGIN: `${BASE_URL}/auth/login`,
+    REFRESH: `${BASE_URL}/auth/refresh`
   },
   USER: {
     SIGNUP_COMPOSER: `${BASE_URL}/user/composer`,
