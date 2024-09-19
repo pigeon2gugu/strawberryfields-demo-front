@@ -4,3 +4,13 @@ export interface ComposerPitchingItem {
     company: string;
     createdAt: string;
   }
+
+export interface CreatePitchingRequest {
+    trackId: number;
+    agencyId: number;
+    description?: string;
+  }
+  
+export interface CreatePitchingResponse {
+      id: number;
+  }

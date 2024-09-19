@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
     EMAIL_EXISTS: `${BASE_URL}/user/email-exists`,
     ARTIST_EXISTS: `${BASE_URL}/user/artist-exists`,
     COMPANY_EXISTS: `${BASE_URL}/user/company-exists`,
+    GET_AGENCIES: `${BASE_URL}/user/agency`
   },
   COMPOSER: {
     GET_TRACKS: `${BASE_URL}/composer/track`,

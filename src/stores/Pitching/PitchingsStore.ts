@@ -27,9 +27,9 @@ class PitchingStore {
     this.pageSize = pagedData.page.size;
   }
 
-  async fetchPitchings(page: number = 0) {
+  async fetchPitchings(page: number) {
     try {
-      const response = await getPitchingsApi(page);
+      const response = await getPitchingsApi(page, this.pageSize);
       if (response.data.code === 'SUCCESS_NORMAL') {
         this.setPitchingData(response.data.data);
       } else {
