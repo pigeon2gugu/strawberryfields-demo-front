@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { pitchingStore } from '@/stores/Pitching/PitchingsStore';
+import PitchingModal from './Components/CreatePitchingModal';
 
 const PitchingListPage: React.FC = observer(() => {
   const [page, setPage] = useState(1);
+  const [isPitchingModalOpen, setIsPitchingModalOpen] = useState(false);
 
   useEffect(() => {
-    pitchingStore.fetchPitchings(page - 1);
+    pitchingStore.fetchPitchings(page);
   }, [page]);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
+  const handlePitchingSuccess = () => {
+    pitchingStore.fetchPitchings(page);
+  };
+
   return (
     <div>
+      <div>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">피칭 내역</h1>
         <button 
-          onClick={() => {/* TODO: 피칭하기 기능 구현 */}}
+          onClick={() => setIsPitchingModalOpen(true)}
           className="px-4 py-2 bg-black text-white rounded"
         >
           피칭하기
         </button>
+      </div>
       </div>
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
@@ -45,6 +53,11 @@ const PitchingListPage: React.FC = observer(() => {
             ))}
           </tbody>
         </table>
+        <PitchingModal
+        isOpen={isPitchingModalOpen}
+        onClose={() => setIsPitchingModalOpen(false)}
+        onSuccess={handlePitchingSuccess}
+        />
       </div>
 
       <div className="mt-4 flex justify-center space-x-2">

@@ -8,7 +8,7 @@ const TrackListPage: React.FC = observer(() => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   useEffect(() => {
-    trackStore.fetchTracks(page);
+    trackStore.fetchTracksWithPagination(page);
   }, [page]);
 
   const handlePageChange = (newPage: number) => {
@@ -16,7 +16,7 @@ const TrackListPage: React.FC = observer(() => {
   };
 
   const handleUploadSuccess = () => {
-    trackStore.fetchTracks(page);
+    trackStore.fetchTracksWithPagination(page);
   };
 
   return (

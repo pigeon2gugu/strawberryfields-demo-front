@@ -37,3 +37,9 @@ export type DuplicationCheckRequest = {
 export interface DuplicationCheckResponse {
   isDuplicated: boolean;
 }
+
+//기획사 정보
+export interface AgencyItem {
+  id: number;
+  company: string;
+}
