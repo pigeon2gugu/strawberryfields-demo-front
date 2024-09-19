@@ -5,6 +5,13 @@ export interface ComposerPitchingItem {
     createdAt: string;
   }
 
+export interface AgencyPitchingItem {
+    id: number;
+    title: string;
+    artist: string;
+    createdAt: string;
+  }
+
 export interface CreatePitchingRequest {
     trackId: number;
     agencyId: number;
