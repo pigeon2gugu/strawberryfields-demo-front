@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { trackStore } from '@/stores/Track/TracksStore';
+import TrackUploadModal from './Components/TrackUploadModal';
 
 const TrackListPage: React.FC = observer(() => {
-  const [page, setPage] = useState(1); // 첫 요청은 1페이지부터 시작
+  const [page, setPage] = useState(1);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   useEffect(() => {
-    trackStore.fetchTracks(page); // 페이지 변경 시 API 호출
+    trackStore.fetchTracks(page);
   }, [page]);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
+  const handleUploadSuccess = () => {
+    trackStore.fetchTracks(page);
+  };
+
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">곡 업로드 목록</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">곡 업로드 목록</h1>
+        <button 
+          onClick={() => setIsUploadModalOpen(true)}
+          className="px-4 py-2 bg-black text-white rounded"
+        >
+          곡 업로드
+        </button>
+      </div>
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -48,6 +62,12 @@ const TrackListPage: React.FC = observer(() => {
           </button>
         ))}
       </div>
+
+      <TrackUploadModal 
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+        onUploadSuccess={handleUploadSuccess}
+      />
     </div>
   );
 });

@@ -13,6 +13,7 @@ export const API_ENDPOINTS = {
     COMPANY_EXISTS: `${BASE_URL}/user/company-exists`,
   },
   COMPOSER: {
-    GET_TRACKS: `${BASE_URL}/composer/track`
+    GET_TRACKS: `${BASE_URL}/composer/track`,
+    UPLOAD_TRACK: `${BASE_URL}/composer/track/upload`
   }
 };
