@@ -20,9 +20,9 @@ const LoginPage: React.FC = () => {
       if (result.code === 'SUCCESS_NORMAL') {
         const userRole = result.data.role;
         if (userRole === 'COMPOSER') {
-          navigate('/composer/track');
+          navigate('/composer/tracks');
         } else if (userRole === 'AGENCY') {
-          navigate('/agency/pitching');
+          navigate('/agency/pitchings');
         } else {
           setError('알 수 없는 역할입니다. 관리자에게 문의하세요.');
         }
