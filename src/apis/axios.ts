@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { API_ENDPOINTS } from '@/constants/Endpoints';
 
-let accessToken: string | null = null;
+let accessToken: string | null = localStorage.getItem('accessToken');
 
 export const setAccessToken = (token: string) => {
   accessToken = token;
+  localStorage.setItem('accessToken', token);
 };
 
 export const getAccessToken = () => accessToken;
@@ -47,10 +48,11 @@ const refreshAccessToken = async () => {
     },
   });
 
-  accessToken = response.data.accessToken;
+  const newAccessToken = response.data.accessToken;
+  setAccessToken(newAccessToken);
   localStorage.setItem('refreshToken', response.data.refreshToken);
 
-  return accessToken;
+  return newAccessToken;
 };
 
 // Response interceptor
@@ -64,13 +66,13 @@ apiClient.interceptors.response.use(
     if (error.response?.data?.code === 'EXPIRED_ACCESS_TOKEN') {
       try {
         const newAccessToken = await refreshAccessToken();
-        accessToken = newAccessToken;
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
 
         return apiClient(originalRequest);
       } catch (refreshError) {
         console.error('Refresh token failed or expired.', refreshError);
         localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
         window.location.href = '/login';
         return Promise.reject(refreshError);
       }
