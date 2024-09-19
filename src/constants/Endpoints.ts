@@ -14,6 +14,7 @@ export const API_ENDPOINTS = {
   },
   COMPOSER: {
     GET_TRACKS: `${BASE_URL}/composer/track`,
-    UPLOAD_TRACK: `${BASE_URL}/composer/track/upload`
+    UPLOAD_TRACK: `${BASE_URL}/composer/track/upload`,
+    CREATE_AND_GET_PITCHING: `${BASE_URL}/composer/pitching`
   }
 };

@@ -6,6 +6,7 @@ import ComposerLayout from '@/components/Layouts/ComposerLayout';
 import LoginPage from '@/pages/Login';
 import SignupPage from '@/pages/SignUp';
 import TrackListPage from '@/pages/Composer/Track/TrackList';
+import PitchingListPage from '@/pages/Composer/Pitching/PitchingList';
 
 const authRoutes = [
   { 
@@ -22,6 +23,10 @@ const composerRoutes = [
   {
     path: 'tracks',
     element: <TrackListPage />
+  },
+  {
+    path: 'pitchings',
+    element: <PitchingListPage />
   }
 ];
 
