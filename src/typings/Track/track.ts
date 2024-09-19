@@ -3,3 +3,8 @@ export interface TrackItem {
     title: string;
     artist: string;
   }
+
+export interface UploadTrackResponse {
+    id: number;
+    fileName: string;
+}
