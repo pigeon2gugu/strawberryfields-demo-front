@@ -1,31 +1,58 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthLayout from '@/components/Layouts/AuthLayout';
+import ComposerLayout from '@/components/Layouts/ComposerLayout';
+//import AgencyLayout from '@/components/Layouts/AgencyLayout';
 import LoginPage from '@/pages/Login';
 import SignupPage from '@/pages/SignUp';
+import TrackListPage from '@/pages/Composer/Track/TrackList';
 
-const routes = [
-  { 
-    path: '/', 
-    element: <Navigate to="/login" replace /> 
-  },
+const authRoutes = [
   { 
     path: '/login', 
-    element: <AuthLayout><LoginPage /></AuthLayout> 
+    element: <LoginPage />
   },
   { 
     path: '/signup', 
-    element: <AuthLayout><SignupPage /></AuthLayout> 
+    element: <SignupPage />
   }
 ];
+
+const composerRoutes = [
+  {
+    path: 'tracks',
+    element: <TrackListPage />
+  }
+];
+
+// const agencyRoutes = [
+// ];
 
 const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
-        ))}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        
+        <Route element={<AuthLayout />}>
+          {authRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Route>
+
+        <Route path="/composer" element={<ComposerLayout />}>
+          {composerRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Route>
+
+        {/* <Route path="/agency" element={<AgencyLayout />}>
+          {agencyRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Route> */}
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
