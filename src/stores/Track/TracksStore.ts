@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { TrackItem } from '@/typings/Track/track';
 import { PagedData } from '@/typings/Service/Page';
 import { getTracksApi } from '@/apis/Track/useGetTracks';
@@ -35,6 +35,10 @@ class TrackStore {
 
 
   async fetchTracksWithPagination(page: number) {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+
     try {
       const response = await getTracksApi(page, this.pageSize);
       if (response.data.code === 'SUCCESS_NORMAL') {
@@ -44,7 +48,11 @@ class TrackStore {
       }
     } catch (error) {
       console.error('Error fetching tracks:', error);
-    }
+    } finally {
+        runInAction(() => {
+          this.isLoading = false;
+        });
+      }
   }
 
   async fetchTracksWithInfiniteScroll(page: number = 1) {

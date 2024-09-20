@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { AgencyPitchingItem } from '@/typings/Pitching/Pitching';
 import { getAgencyPitchingsApi } from '@/apis/Pitching/useGetAgencyPitchings';
 import { PagedData } from '@/typings/Service/Page';
@@ -11,6 +11,7 @@ class AgencyPitchingsStore {
   totalPages = 0;
   totalElements = 0;
   pageSize = 10;
+  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -28,8 +29,12 @@ class AgencyPitchingsStore {
   }
   
   async fetchPitchings(page: number) {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+
     try {
-      const response = await getAgencyPitchingsApi(page - 1, this.pageSize);
+      const response = await getAgencyPitchingsApi(page, this.pageSize);
       if (response.data.code === 'SUCCESS_NORMAL') {
         this.setPitchingData(response.data.data);
       } else {
@@ -37,7 +42,11 @@ class AgencyPitchingsStore {
       }
     } catch (error) {
       console.error('Error fetching pitchings:', error);
-    }
+    } finally {
+        runInAction(() => {
+          this.isLoading = false;
+        });
+      }
   }
 }
 
