@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# Strawberryfields Demo Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+스트로베리필즈 demo 웹서비스 프론트엔드 구현  
 
-## Available Scripts
+## 프로젝트 소개
 
-In the project directory, you can run:
+작곡가와 기획사 간의 음악 피칭을 위한 웹 플랫폼
+작곡가는 곡을 업로드하고 기획사에 피칭할 수 있으며, 기획사는 받은 피칭을 확인할 수 있습니다.
 
-### `npm start`
+### 주요 기능
+- 사용자 인증 (로그인/회원가입)
+- 작곡가: 곡 업로드, 업로드 내역 확인, 피칭 내역 확인, 새로운 피칭 생성
+- 기획사: 받은 피칭 내역 확인
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 기술 스택
+- React 18
+- TypeScript
+- Tailwind CSS
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 시작하기
 
-### `npm test`
+### 필요 조건
+- Node.js (v16 이상)
+- npm (v7 이상)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 설치
 
-### `npm run build`
+```shell
+# 저장소 클론
+git clone https://github.com/your-username/strawberryfields-demo-front.git
+cd strawberryfields-demo-front
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 의존성 패키지 설치
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 실행
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```shell
+# 개발 모드로 실행
+npm start
+```
 
-### `npm run eject`
+## 사용 가이드
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 프로젝트를 실행하면 로그인 페이지로 이동합니다.
+- 회원 가입 시 작곡가 또는 기획사 유저로 가입할 수 있습니다.
+- 로그인 시 유저 역할에 따라 다른 페이지로 이동합니다:
+  - 작곡가: 곡 업로드 목록 페이지
+  - 기획사: 피칭 내역 페이지
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 작곡가 페이지
+1. 곡 업로드 목록 (`/composer/tracks`)
+   - 업로드한 곡 목록 확인
+   - 새로운 곡 업로드 가능
+2. 피칭 내역 (`/composer/pitchings`)
+   - 피칭 내역 목록 확인
+   - 새로운 피칭 생성 가능
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 기획사 페이지
+1. 피칭 내역 (`/agency/pitchings`)
+   - 받은 피칭 내역 확인
