@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { ComposerPitchingItem } from '@/typings/Pitching/Pitching';
 import { PagedData } from '@/typings/Service/Page';
 import { getPitchingsApi } from '@/apis/Pitching/useGetComposerPitchings';
@@ -11,6 +11,7 @@ class PitchingStore {
   totalPages = 0;
   totalElements = 0;
   pageSize = 10;
+  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -28,6 +29,10 @@ class PitchingStore {
   }
 
   async fetchPitchings(page: number) {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+
     try {
       const response = await getPitchingsApi(page, this.pageSize);
       if (response.data.code === 'SUCCESS_NORMAL') {
@@ -37,7 +42,11 @@ class PitchingStore {
       }
     } catch (error) {
       console.error('Error fetching pitchings:', error);
-    }
+    } finally {
+        runInAction(() => {
+          this.isLoading = false;
+        });
+      }
   }
 }
 
